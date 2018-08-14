@@ -1,12 +1,13 @@
 " this is to receive CTRL-S and CTRL-Q
 silent !stty -ixon > /dev/null 2>/dev/null
+set encoding=utf-8
 
 " disable vi compatibility (emulation of old bugs)
 set nocompatible
 set exrc
 
 
-" setup Vundle (run :PluginInstall to install plugins)
+" setup Vundle (run :PluginInstald to install plugins)
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -16,16 +17,30 @@ Plugin 'VundleVim/Vundle.vim'
 
 " plugin to enable git integration
 Plugin 'tpope/vim-fugitive'
-
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'lazywei/vim-matlab'
 " Plugin 'Valloric/YouCompleteMe' 
-Plugin 'Shougo/neocomplete.vim'
+" Plugin 'Shougo/neocomplete.vim'
 " plugins to enable snippets support
-
+"
+"Deocomplete and dependencies
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'roxma/nvim-yarp'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
+
+"Status bar plugin
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'rafi/awesome-vim-colorschemes'
 " Plugin 'garbas/vim-snipmate'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+
+" plugin de javascript
+Plugin 'pangloss/vim-javascript'
 
 " enable NERD tree - allows you to explore your filesystem 
 " and to open files and directories.
@@ -61,12 +76,15 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 " create an outline of tags in current file/buffer
 Plugin 'majutsushi/tagbar'
 
+Plugin 'roxma/nvim-completion-manager'
 " Plugin 'craigemery/vim-autotag'
 
 " Plugin for toggling comments
 Plugin 'tomtom/tcomment_vim'
 
-Plugin 'vim-latex/vim-latex'
+" Plugin 'vim-latex/vim-latex'
+
+Plugin 'lervag/vimtex'
 
 Plugin 'klen/python-mode'
 
@@ -74,6 +92,8 @@ Plugin 'klen/python-mode'
 " Plugin 'powerline/powerline'
 
 Plugin 'davidhalter/jedi-vim'
+Plugin 'shirk/vim-gas'
+Plugin 'mattn/emmet-vim'
 
 " end of Vundle initialization
 call vundle#end()
@@ -87,17 +107,33 @@ let g:UltiSnipsJumpForwardTrigger="<c-k>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsListSnippets = "<c-l>"
-" youcompleteme config  to not conlict with UltiSnips
-" let g:ycm_key_list_select_completion=[]
-" let g:ycm_key_list_previous_completion=[]
-" let g:ycm_python_binary_path = '/usr/bin/python3'
-" let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDir="~/.vim/mydir/UltiSnips/"
+
+" youcompleteme config  to not conlict with UltiSnips
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+let g:ycm_python_binary_path = '/usr/bin/python3'
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
 
 " neocomplete config
-let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#enable_at_startup = 1
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_yarp = 1
+
+
+
+" airline status bar
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline_left_sep='>'
+let g:airline_theme='distinguished'
 
 " python-mode configurations
 let g:pymode = 0
@@ -185,22 +221,48 @@ let g:jedi#completions_command = "<C-N>"
 let g:jedi#goto_command = "<C-]>"
 let g:jedi#force_py_version = 3
 
-let g:tex_flavor='latex'
-let g:Tex_EnvironmentMaps = 0
-let g:Tex_EnvironmentMenus= 0
-let g:Tex_FontMaps=0
-let g:Tex_FontMenus=0
-let g:Tex_SectionMaps=0
-let g:Tex_SectionMenus = 0
-let g:Tex_AutoFolding=0
-let g:Tex_MathMenus=0
-let g:TexAdvancedMath = 0
-let g:Imap_UsePlaceHolders = 0
+
+set grepprg=grep\ -nH\ $*
+" let g:tex_flavor='latex'
+" let g:Tex_EnvironmentMaps = 0
+" let g:Tex_EnvironmentMenus= 0
+" let g:Tex_FontMaps=0
+" let g:Tex_FontMenus=0
+" let g:Tex_SectionMaps=0
+" let g:Tex_SectionMenus = 0
+" let g:Tex_AutoFolding=0
+" let g:Tex_MathMenus=0
+" let g:TexAdvancedMath = 0
+" let g:Imap_UsePlaceHolders = 0
+let g:vimtex_enabled=1
+let g:vimtex_compiler_enabled=1
+let g:vimtex_compiler_method='latexmk'
+" Instead do this
+" let g:vimtex_compiler_latexmk = {
+    " \ 'options' : '-pdf -verbose -bibtex -file-line-error -synctex=1 --interaction=nonstopmode',
+    " \}
+" *g:vimtex_compiler_latexmk*
+let g:vimtex_complete_enabled=1
+let g:vimtex_complete_close_braces=1
+let g:vimtex_imaps_enabled=1
+let g:vimtex_imaps_leader='-'
+let g:vimtex_indent_enabled=1
+let g:vimtex_indent_bib_enabled=1
+" *g:vimtex_index_hide_line_numbers*
+let g:vimtex_mappings_enabled=1
+let g:vimtex_view_method = 'zathura'
+" let g:vimtex_compiler_latexmk = {'callback' : 0}
+
 
 augroup group_python
 	autocmd!
 	autocmd Filetype python setl shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 augroup END
+augroup asms
+	autocmd!
+	au BufRead,BufNewFile *.s set syntax=gas
+    " associate *.s with gas filetype
+augroup END	
 
 augroup xml_grp
 	autocmd!
@@ -267,6 +329,7 @@ set showmode
 " enhanced tab completion on commands
 set wildmenu
 set wildmode=longest:list,full
+set colorcolumn=75
 
 " buffer can be in the background if it’s modified
 set hidden
@@ -310,6 +373,20 @@ function! MyPrev()
     endif
 endfunction
 
+function! GetAllSnippets()
+  call UltiSnips#SnippetsInCurrentScope(1)
+  let list = []
+  for [key, info] in items(g:current_ulti_dict_info)
+    let parts = split(info.location, ':')
+    call add(list, {
+      \"key": key,
+      \"path": parts[0],
+      \"linenr": parts[1],
+      \"description": info.description,
+      \})
+  endfor
+  return list
+endfunction
 " OmniCppComplete options
 " let OmniCpp_NamespaceSearch = 1      
 " let OmniCpp_GlobalScopeSearch = 1      
@@ -394,18 +471,25 @@ let g:ctrlp_switch_buffer = 't'
 let g:ConqueTerm_Color = 2         " 1: strip color after 200 lines, 2: always with color
 let g:ConqueTerm_CloseOnEnd = 1    " close conque when program ends running
 let g:ConqueTerm_StartMessages = 1 " display warning messages if conqueTerm is configured incorrectly
-let g:ConqueTerm_PyVersion = 2
+let g:ConqueTerm_PyVersion = 3
 let g:ConqueTerm_ReadUnfocused = 1
 " let g:ConqueGdb_GdbExe = 'arm-none-eabi-gdb'
+let g:ConqueTerm_InsertOnEnter = 1
+let g:ConqueTerm_CWInsert = 1
+let g:ConqueGdb_SaveHistory = 1
+map <C-q>d <ESC>:ConqueGdbBDelete<CR>
+nmap & F<Space>a$<ESC>f<Space>i$
 
 " setup color scheme for vim and gvim
 if has('gui_running')
 	set background=dark
-	colorscheme badwolf
+	colorscheme duoduo
 else
-	colorscheme evening3
+	set background=dark
+	colorscheme gruvbox
+	" colorscheme duoduo
+	" colorscheme material-monokai
 endif
-
 " COMMANDS ALIAS
 ca gdb ConqueGdb
 
