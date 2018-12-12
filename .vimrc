@@ -1,122 +1,217 @@
 " this is to receive CTRL-S and CTRL-Q
 silent !stty -ixon > /dev/null 2>/dev/null
 set encoding=utf-8
+" set term=screen-256color
+if has('vim')
+	set term=xterm-256color
+endif
 
 " disable vi compatibility (emulation of old bugs)
 set nocompatible
 set exrc
 
-
 " setup Vundle (run :PluginInstald to install plugins)
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin()
 
-" plugin to enable Vundle 
-Plugin 'VundleVim/Vundle.vim'
+" plugin to enable Vundle
+" Plug 'VundleVim/Vundle.vim'
 
 " plugin to enable git integration
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'lazywei/vim-matlab'
-" Plugin 'Valloric/YouCompleteMe' 
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'lazywei/vim-matlab'
+" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Shougo/neocomplete.vim'
 " plugins to enable snippets support
+Plug 'sheerun/vim-polyglot'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-scripts/grep.vim'
+Plug 'vim-scripts/CSApprox'
+Plug 'bronson/vim-trailing-whitespace'
 "
 "Deocomplete and dependencies
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'roxma/nvim-yarp'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'roxma/nvim-yarp'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
 
 "Status bar plugin
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'rafi/awesome-vim-colorschemes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'rafi/awesome-vim-colorschemes'
 " Plugin 'garbas/vim-snipmate'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " plugin de javascript
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 
 " enable NERD tree - allows you to explore your filesystem 
 " and to open files and directories.
-Plugin 'scrooloose/nerdtree.git'
+Plug 'scrooloose/nerdtree'
 
 " enable CTRLP - Full path fuzzy file, buffer, mru, tag, 
 " etc, finder for Vim
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " enable linuxsty - Linux Kernel Coding Style
-Plugin 'vivien/vim-addon-linux-coding-style'
+Plug 'vivien/vim-addon-linux-coding-style'
 
 " enable doxygen plugin
 " Plugin 'mrtazz/DoxygenToolkit.vim'
 " a more recent version on ~/.vim/plugins
 
 " enable Wordpress Integration plugin
-Plugin 'vim-scripts/VimRepress'
+Plug 'vim-scripts/VimRepress'
 
 " syntax checking plugin for Vim that runs files through external syntax
 " checkers and displays any resulting errors to the user.
 " Plugin 'scrooloose/syntastic'
 
 " buffer explorer
-Plugin 'jlanzarotta/bufexplorer'
+Plug 'jlanzarotta/bufexplorer'
 
 "enable GDB integration
-Plugin 'vim-scripts/Conque-GDB'
+Plug 'vim-scripts/Conque-GDB'
 
 "enable enhanced c++ syntax and highlighting
-Plugin 'octol/vim-cpp-enhanced-highlight'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 " create an outline of tags in current file/buffer
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
-Plugin 'roxma/nvim-completion-manager'
+Plug 'roxma/nvim-completion-manager'
 " Plugin 'craigemery/vim-autotag'
 
 " Plugin for toggling comments
-Plugin 'tomtom/tcomment_vim'
+Plug 'tomtom/tcomment_vim'
 
 " Plugin 'vim-latex/vim-latex'
 
-Plugin 'lervag/vimtex'
+Plug 'lervag/vimtex'
 
-Plugin 'klen/python-mode'
+Plug 'klen/python-mode'
 
 " Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Plugin 'powerline/powerline'
 
-Plugin 'davidhalter/jedi-vim'
-Plugin 'shirk/vim-gas'
-Plugin 'mattn/emmet-vim'
+Plug 'davidhalter/jedi-vim'
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+Plug 'shirk/vim-gas'
+Plug 'mattn/emmet-vim'
 
+Plug 'morhetz/gruvbox'
+Plug 'ludovicchabant/vim-gutentags'
+
+Plug 'junegunn/vim-easy-align'
+if isdirectory('/usr/local/opt/fzf')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
+endif
+"
+" javascript
+"" Javascript Bundle
+Plug 'jelera/vim-javascript-syntax'
+
+
+Plug 'xolox/vim-misc' 
+" lua
+"" Lua Bundle
+Plug 'xolox/vim-lua-ftplugin'
+Plug 'xolox/vim-lua-inspect'
+
+
+" php
+"" PHP Bundle
+Plug 'arnaud-lb/vim-php-namespace'
+
+Plug 'jiangmiao/auto-pairs'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'xolox/vim-session'
 " end of Vundle initialization
-call vundle#end()
+call plug#end()
+
+" if has('termguicolors')
+" 	set termguicolors
+" endif
 
 filetype plugin indent on
 filetype on
 
+set autoread
+
+"" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+" Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set t_Co=256
+set t_ut=
+if has("gui_running")
+  if has("gui_mac") || has("gui_macvim")
+    set guifont=Menlo:h12
+    set transparency=7
+  endif
+else
+  let g:CSApprox_loaded = 1
+
+  " IndentLine
+  let g:indentLine_enabled = 1
+  let g:indentLine_concealcursor = 0
+  let g:indentLine_char = '┆'
+  let g:indentLine_faster = 1
+
+  
+endif
+
+let g:deoplete#enable_at_startup = 1
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_project_root = ['rel.tex', 'pres.tex']
+
+
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsListSnippets = "<c-l>"
+let g:UltiSnipsListSnippets = "<c-x>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetsDir="~/.vim/mydir/UltiSnips/"
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips/"
+let g:UltiSnipsSnippetDirectories=['UltiSnips']
 
-" youcompleteme config  to not conlict with UltiSnips
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-let g:ycm_python_binary_path = '/usr/bin/python3'
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 
+"" fzf.vim
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+
+" The Silver Searcher
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+" ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>e :FZF -m<CR>
 
 " neocomplete config
 " let g:neocomplete#enable_at_startup = 1
@@ -134,106 +229,90 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 " let g:airline_left_sep='>'
 let g:airline_theme='distinguished'
+" vim-airline
+" let g:airline_theme = 'powerlineish'
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#virtualenv#enabled = 1
 
-" python-mode configurations
-let g:pymode = 0
+" vim-airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
 
-" let g:pymode_warnings = 0
-" let g:pymode_trim_whitespaces = 1
-" let g:pymode_options = 0
-" let g:pymode_quickfix_minheight = 3
-" let g:pymode_quickfix_maxheight = 6
-" let g:pymode_python = 'python3'
-" let g:pymode_indent = 1
-" let g:pymode_motion = 1
-" let g:pymode_doc = 1
-" let g:pymode_doc_bind = 'K'
-" let g:pymode_run = 1
-" let g:pymode_run_bind = '<leader>r'
-" let g:pymode_breakpoint = 1
-" let g:pymode_breakpoint_bind = '<leader>b'
-" let g:pymode_breakpoint_cmd = ''
+if !exists('g:airline_powerline_fonts')
+  let g:airline#extensions#tabline#left_sep = ' '
+  let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline_left_sep          = '▶'
+  let g:airline_left_alt_sep      = '»'
+  let g:airline_right_sep         = '◀'
+  let g:airline_right_alt_sep     = '«'
+  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+  let g:airline#extensions#readonly#symbol   = '⊘'
+  let g:airline#extensions#linecolumn#prefix = '¶'
+  let g:airline#extensions#paste#symbol      = 'ρ'
+  let g:airline_symbols.linenr    = '␊'
+  let g:airline_symbols.branch    = '⎇'
+  let g:airline_symbols.paste     = 'ρ'
+  let g:airline_symbols.paste     = 'Þ'
+  let g:airline_symbols.paste     = '∥'
+  let g:airline_symbols.whitespace = 'Ξ'
+else
+  let g:airline#extensions#tabline#left_sep = ''
+  let g:airline#extensions#tabline#left_alt_sep = ''
 
-" lint code checking configuration
-" let g:pymode_lint = 1
-" let g:pymode_lint_on_write = 0
-" let g:pymode_lint_unmodified = 0
-" let g:pymode_lint_on_fly = 0
-" let g:pymode_lint_message = 1
-" let g:pymode_lint_checkers = ['pylint', 'pyflakes', 'pep8', 'mccabe']
-" let g:pymode_lint_cwindow = 1
-" let g:pymode_lint_signs = 1
-" symbols
-" let g:pymode_lint_todo_symbol = 'WW'
-" let g:pymode_lint_comment_symbol = 'CC'
-" let g:pymode_lint_visual_symbol = 'RR'
-" let g:pymode_lint_error_symbol = 'EE'
-" let g:pymode_lint_info_symbol = 'II'
-" let g:pymode_lint_pyflakes_symbol = 'FF'
-" let g:pymode_folding = 0
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ''
+endif
+" Syntax highlight
+" Default highlight is better than polyglot
+let g:polyglot_disabled = ['python']
+let python_highlight_all = 1
 
-" rope configurations
-" let g:pymode_rope_completion = 1
-" let g:pymode_rope_complete_on_dot = 1
-" let g:pymode_rope_completion_bind = '<C-Space>'
-" let g:pymode_rope_autoimport = 1
-" let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime'])
-" let g:pymode_rope_autoimport_import_after_complete = 0
+" grep.vim
+nnoremap <silent> <leader>f :Rgrep<CR>
+let Grep_Default_Options = '-IR'
+let Grep_Skip_Files = '*.log *.db'
+let Grep_Skip_Dirs = '.git node_modules'
 
-" Override go-to.definition key shortcut to Ctrl-]
-" let g:pymode_rope_goto_definition_bind = "<C-]>"
-" let g:pymode_rope_goto_definition_cmd = 'new'
-" refactoring
-" let g:pymode_rope_rename_bind = '<C-c>rr'
-" let g:pymode_rope_rename_module_bind = '<C-c>r1r'
-" let g:pymode_rope_organize_imports_bind = '<C-c>ro'
-" let g:pymode_rope_autoimport_bind = '<C-c>ra'
-" let g:pymode_rope_module_to_package_bind = '<C-c>r1p'
-" let g:pymode_rope_extract_method_bind = '<C-c>rm'
-" let g:pymode_rope_extract_variable_bind = '<C-c>rl'
-" let g:pymode_rope_use_function_bind = '<C-c>ru'
-" let g:pymode_rope_move_bind = '<C-c>rv'
-" let g:pymode_rope_change_signature_bind = '<C-c>rs'
-
-" syntax
-" let g:pymode_syntax = 1
-" let g:pymode_syntax_slow_sync = 1
-" let g:pymode_syntax_all = 1
-" let g:pymode_syntax_print_as_function = 1
-" let g:pymode_syntax_highlight_async_await = g:pymode_syntax_all
-" let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-" let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-" let g:pymode_syntax_space_errors = g:pymode_syntax_all
-" let g:pymode_syntax_string_formatting = g:pymode_syntax_all
-" let g:pymode_syntax_string_format = g:pymode_syntax_all
-" let g:pymode_syntax_string_templates = g:pymode_syntax_all
-" let g:pymode_syntax_doctests = g:pymode_syntax_all
-" let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
-" let g:pymode_syntax_builtin_types = g:pymode_syntax_all
-" let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
-" let g:pymode_syntax_docstrings = g:pymode_syntax_all
-" let g:pymode_rope = 0
 
 " python jedi configuration
 " let g:jedi#completions_enabled = 1
 let g:jedi#auto_initialization = 1
-let g:jedi#completions_command = "<C-N>"
-let g:jedi#goto_command = "<C-]>"
 let g:jedi#force_py_version = 3
+" jedi-vim
+let g:jedi#popup_on_dot = 0
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#show_call_signatures = "0"
+let g:jedi#completions_command = "<C-N>"
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#goto_command = "<C-]>"
 
+" vimshell.vim
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_prompt =  '$ '
+
+" terminal emulation
+if has('nvim')
+  nnoremap <silent> <leader>sh :terminal<CR>
+else
+  nnoremap <silent> <leader>sh :VimShellCreate<CR>
+endif
 
 set grepprg=grep\ -nH\ $*
-" let g:tex_flavor='latex'
-" let g:Tex_EnvironmentMaps = 0
-" let g:Tex_EnvironmentMenus= 0
-" let g:Tex_FontMaps=0
-" let g:Tex_FontMenus=0
-" let g:Tex_SectionMaps=0
-" let g:Tex_SectionMenus = 0
-" let g:Tex_AutoFolding=0
-" let g:Tex_MathMenus=0
-" let g:TexAdvancedMath = 0
-" let g:Imap_UsePlaceHolders = 0
 let g:vimtex_enabled=1
 let g:vimtex_compiler_enabled=1
 let g:vimtex_compiler_method='latexmk'
@@ -253,30 +332,78 @@ let g:vimtex_mappings_enabled=1
 let g:vimtex_view_method = 'zathura'
 " let g:vimtex_compiler_latexmk = {'callback' : 0}
 
+"" Split
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
+
+"" Git
+noremap <Leader>ga :Gwrite<CR>
+noremap <Leader>gc :Gcommit<CR>
+noremap <Leader>gsh :Gpush<CR>
+noremap <Leader>gll :Gpull<CR>
+noremap <Leader>gs :Gstatus<CR>
+noremap <Leader>gb :Gblame<CR>
+noremap <Leader>gd :Gvdiff<CR>
+noremap <Leader>gr :Gremove<CR>
+
+" session management
+nnoremap <leader>so :OpenSession<Space>
+nnoremap <leader>ss :SaveSession<Space>
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
 
 augroup group_python
 	autocmd!
-	autocmd Filetype python setl shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+	autocmd Filetype python setl shiftwidth=4 smarttab=1 softtabstop=4 tabstop=8 expandtab
+      \ formatoptions+=croq softtabstop=4
+      \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
+
+" c
+autocmd FileType c setlocal tabstop=4 shiftwidth=4
+autocmd FileType cpp setlocal tabstop=4 shiftwidth=4
+
+
+" html
+" for html files, 2 spaces
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+
+" javascript
+let g:javascript_enable_domhtmlcss = 1
+
+" vim-javascript
+augroup vimrc-javascript
+  autocmd!
+  autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4
+augroup END
+
 augroup asms
 	autocmd!
 	au BufRead,BufNewFile *.s set syntax=gas
     " associate *.s with gas filetype
-augroup END	
+augroup END
 
 augroup xml_grp
 	autocmd!
 	au BufRead,BufNewFile *.launch	 setfiletype xml
 augroup END
 
-augroup ccpp
-	autocmd!
-	autocmd filetype cpp call SetCppTags() 
-	autocmd filetype c call SetCTags() 
+" augroup ccpp
+" 	autocmd!
+" 	autocmd filetype cpp call SetCppTags()
+" 	autocmd filetype c call SetCTags()
+" augroup END
+
+"" make/cmake
+augroup vimrc-make-cmake
+  autocmd!
+  autocmd FileType make setlocal noexpandtab
+  autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
 
 set backspace=indent,eol,start
 set history=50
+set relativenumber
 
 " disable Linux Kernel Coding Style
 let g:loaded_linuxsty=1
@@ -438,12 +565,19 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 let g:ctrlp_by_filename = 1
 let g:ctrlp_switch_buffer = 't'
 
+" syntastic
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_auto_loc_list=1
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_python_checkers=['python', 'flake8']
 " Syntastic configuration (source code syntax checking)
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 2
 " let g:syntastic_check_on_open = 0
 " let g:syntastic_check_on_wq = 0
 " let b:syntastic_mode = 'passive'
@@ -466,6 +600,9 @@ let g:ctrlp_switch_buffer = 't'
 " let g:syntastic_extra_filetypes = [ "make" ]
 " let g:syntastic_cpp_config_file = '.config_syntastic'
 
+" Tagbar
+nmap <silent> <F4> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
 
 " ConqueGDB configuration
 let g:ConqueTerm_Color = 2         " 1: strip color after 200 lines, 2: always with color
@@ -481,11 +618,16 @@ map <C-q>d <ESC>:ConqueGdbBDelete<CR>
 nmap & F<Space>a$<ESC>f<Space>i$
 
 " setup color scheme for vim and gvim
+" set termguicolors
 if has('gui_running')
 	set background=dark
-	colorscheme duoduo
+	let g:gruvbox_italic=1
+	colorscheme gruvbox
+	" set background=dark
+	" colorscheme duoduo
 else
 	set background=dark
+	let g:gruvbox_italic=1
 	colorscheme gruvbox
 	" colorscheme duoduo
 	" colorscheme material-monokai
@@ -506,7 +648,7 @@ ca gdb ConqueGdb
 "imap <c-q> <c-o><c-q>
 
 " (F4) Build tags of your own project
-map <F4> <ESC>:!ctags -R --extra=+fq --c-kinds=+px --fields=+iaS .<cr><cr>
+" map <F4> <ESC>:!ctags -R --extra=+fq --c-kinds=+px --fields=+iaS .<cr><cr>
 
 " (F6) create doxygen comment
 nmap <F10> <ESC>:Dox<CR>
@@ -529,13 +671,23 @@ noremap <silent> <F12> <ESC>:ToggleBufExplorer<CR>
 
 " (CTRL-T, CTRL-right, CTRL-left, L, H) tabs/buffer management
 nnoremap <C-t> <ESC>:tabnew<CR>
-map L <ESC>:tabnext<CR>
-map H <ESC>:tabprev<CR>
+" map L <ESC>:tabnext<CR>
+" map H <ESC>:tabprev<CR>
 nnoremap <C-Right>  <ESC>:call MyNext()<CR>
 nnoremap <C-Left>  <ESC>:call MyPrev()<CR>
 
 " (CTRL-r) open nerd tree
-nnoremap <C-r> <ESC>:NERDTreeToggle<CR>
+"" NERDTree configuration
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <silent> <F2> <ESC>:NERDTreeFind<CR>
+nnoremap <silent> <F3> <ESC>:NERDTreeToggle<CR>
 
 " (CTRL_A, CTRL-I) change to *.C/*.H file 
 nnoremap <C-s> :A<CR>
@@ -547,13 +699,14 @@ nnoremap <C-p> <ESC>:pop<CR>
 " (CTRL-W ]) Open tag under cursor in new tab
 nnoremap <C-W>] <C-W>]:tab split<CR>gT:q<CR>gt 
 
-" shortcut for open/close tag outline of current file
-nmap <C-o> :TagbarToggle<CR>
-
 nmap ; :
 nmap <silent> , :noh<CR>
 
-imap <F3> <c-x><c-o>
+" imap <F3> <c-x><c-o>
+
+noremap <leader>y "+y<CR>
+noremap <leader>a "+gP<CR>
+noremap <leader>x "+x<CR>
 
 nmap <C-y>k :SyntasticCheck<CR>
 nmap <C-y>t :SyntasticToglleMode<CR>
@@ -629,6 +782,5 @@ endfunction
 " Always show statusline
 " set laststatus=2
 
-" Use 256 colours (Use this setting only if your terminal supports 256 colours)
-" set t_Co=256
-set runtimepath+=~/.vim/bundle/vim-snippets/UltiSnips
+set runtimepath+=~/.vim/plugged/vim-snippets/UltiSnips
+

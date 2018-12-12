@@ -1,0 +1,13 @@
+snippet t "A simple html tag"
+    <${1:div}>
+    </${1/(\w+).*/$1/}>
+endsnippet
+
+snippet todo "TODO reminder" b
+	<!-- TODO: `echo $USER` ${1:desc} `!v strftime("%c")` -->
+endsnippet
+
+snippet simp "Simple Python"
+`!p snip.rv = 'Hello'`
+endsnippet
+
