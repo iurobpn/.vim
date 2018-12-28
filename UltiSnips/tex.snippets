@@ -1,0 +1,34 @@
+snippet wblk "Whiteblock Environment"
+\begin{whiteblock}{${1:Titulo}}
+	${2:Corpo}
+\end{whiteblock}
+endsnippet
+
+snippet frame "Frame"
+\begin{frame}{${1:Titulo}}
+${2:conteudo}
+\end{frame}
+endsnippet
+snippet min "optimization problem"
+\begin{align}
+	\begin{aligned}
+		\underset{$1}{\text{minimize}} ~ & ~ ~   $2 \\\\
+		\text{subject to}	~ & ~ ~ $3 ${4:\leq} ${5:0} \\\\
+					~ & ~ ~ $6 ${7:\leq} ${8:0}
+	\end{aligned}
+\end{align}
+endsnippet
+
+snippet minsub "optimization problem with subequation numbers"
+\begin{subequations}
+	\begin{alignat}{2}
+	&\underset{$1}{\text{minimize}}        &\qquad& $2, \\\\
+	&\text{subject to} &      & $3 ${4:\leq} ${5:0}, \\\\
+	&                  &      & $6 ${7:\leq} ${8:0}.
+	\end{alignat}
+\end{subequations}
+endsnippet
+
+snippet noi "noindent"
+\noindent
+endsnippet

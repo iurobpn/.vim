@@ -1,3 +1,23 @@
+if has('vim_starting')
+	set nocompatible               " Be iMproved
+endif
+
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+
+
+if !filereadable(vimplug_exists)
+	if !executable("curl")
+		echoerr "You have to install curl or first install vim-plug yourself!"
+		execute "q!"
+	endif
+	echo "Installing Vim-Plug..."
+	echo ""
+	silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	let g:not_finish_vimplug = "yes"
+
+	autocmd VimEnter * PlugInstall
+endif
+
 " this is to receive CTRL-S and CTRL-Q
 silent !stty -ixon > /dev/null 2>/dev/null
 set encoding=utf-8
@@ -35,12 +55,13 @@ Plug 'bronson/vim-trailing-whitespace'
 "
 "Deocomplete and dependencies
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/vim-hug-neovim-rpc'
+	Plug 'Shougo/deoplete.nvim'
+	Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'roxma/nvim-yarp'
+
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 
@@ -63,6 +84,9 @@ Plug 'scrooloose/nerdtree'
 " etc, finder for Vim
 Plug 'ctrlpvim/ctrlp.vim'
 
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+
 " enable linuxsty - Linux Kernel Coding Style
 Plug 'vivien/vim-addon-linux-coding-style'
 
@@ -75,7 +99,10 @@ Plug 'vim-scripts/VimRepress'
 
 " syntax checking plugin for Vim that runs files through external syntax
 " checkers and displays any resulting errors to the user.
-" Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
+" Syntax checking for latex
+" Plug 'w0rp/ale'
+
 
 " buffer explorer
 Plug 'jlanzarotta/bufexplorer'
@@ -89,7 +116,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 " create an outline of tags in current file/buffer
 Plug 'majutsushi/tagbar'
 
-Plug 'roxma/nvim-completion-manager'
+" Plug 'roxma/nvim-completion-manager'
 " Plugin 'craigemery/vim-autotag'
 
 " Plugin for toggling comments
@@ -125,7 +152,7 @@ endif
 Plug 'jelera/vim-javascript-syntax'
 
 
-Plug 'xolox/vim-misc' 
+Plug 'xolox/vim-misc'
 " lua
 "" Lua Bundle
 Plug 'xolox/vim-lua-ftplugin'
@@ -152,9 +179,6 @@ filetype on
 
 set autoread
 
-"" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 set t_Co=256
 set t_ut=
@@ -171,13 +195,10 @@ else
   let g:indentLine_concealcursor = 0
   let g:indentLine_char = '┆'
   let g:indentLine_faster = 1
-
-  
 endif
 
-let g:deoplete#enable_at_startup = 1
 set statusline+=%{gutentags#statusline()}
-let g:gutentags_project_root = ['rel.tex', 'pres.tex']
+let g:gutentags_project_root = ['root.tex','rel.tex', 'pres.tex']
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -185,7 +206,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsListSnippets = "<c-x>"
+let g:UltiSnipsListSnippets = "<c-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips/"
@@ -203,6 +224,15 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
+if has('nvim')
+	nmap <leader>t :terminal<CR>
+else
+	nmap <leader>t :sh<CR>
+endif
+" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+nmap <leader>e :s/\s\+$//<CR>
+
 " ripgrep
 if executable('rg')
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
@@ -210,8 +240,8 @@ if executable('rg')
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 endif
 
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>e :FZF -m<CR>
+" nnoremap <silent> <leader>b :Buffers<CR>
+" nnoremap <silent> <leader>e :FZF -m<CR>
 
 " neocomplete config
 " let g:neocomplete#enable_at_startup = 1
@@ -219,8 +249,7 @@ nnoremap <silent> <leader>e :FZF -m<CR>
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_yarp = 1
-
-
+call deoplete#custom#option('num_processes', 1)
 
 " airline status bar
 let g:airline#extensions#tabline#enabled = 1
@@ -232,6 +261,7 @@ let g:airline_theme='distinguished'
 " vim-airline
 " let g:airline_theme = 'powerlineish'
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
@@ -275,7 +305,7 @@ else
 endif
 " Syntax highlight
 " Default highlight is better than polyglot
-let g:polyglot_disabled = ['python']
+let g:polyglot_disabled = ['python','latex']
 let python_highlight_all = 1
 
 " grep.vim
@@ -315,12 +345,9 @@ endif
 set grepprg=grep\ -nH\ $*
 let g:vimtex_enabled=1
 let g:vimtex_compiler_enabled=1
+let g:vimtex_latexmk_progname='nvr'
 let g:vimtex_compiler_method='latexmk'
 " Instead do this
-" let g:vimtex_compiler_latexmk = {
-    " \ 'options' : '-pdf -verbose -bibtex -file-line-error -synctex=1 --interaction=nonstopmode',
-    " \}
-" *g:vimtex_compiler_latexmk*
 let g:vimtex_complete_enabled=1
 let g:vimtex_complete_close_braces=1
 let g:vimtex_imaps_enabled=1
@@ -352,9 +379,14 @@ nnoremap <leader>ss :SaveSession<Space>
 nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
+nnoremap <C-S-Left> <C-w><Left>
+nnoremap <C-S-Right> <C-w><Right>
+nnoremap <C-S-Up> <C-w><Up>
+nnoremap <C-S-Down> <C-w><Down>
+
 augroup group_python
 	autocmd!
-	autocmd Filetype python setl shiftwidth=4 smarttab=1 softtabstop=4 tabstop=8 expandtab
+	autocmd Filetype python setl shiftwidth=4 smarttab softtabstop=4 tabstop=8 expandtab
       \ formatoptions+=croq softtabstop=4
       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
@@ -514,16 +546,6 @@ function! GetAllSnippets()
   endfor
   return list
 endfunction
-" OmniCppComplete options
-" let OmniCpp_NamespaceSearch = 1      
-" let OmniCpp_GlobalScopeSearch = 1      
-" let OmniCpp_ShowAccess = 1      
-" let OmniCpp_ShowPrototypeInAbbr = 1
-" let OmniCpp_MayCompleteDot = 1      
-" let OmniCpp_MayCompleteArrow = 1      
-" let OmniCpp_MayCompleteScope = 1      
-" let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-
 
 " automatically open and close the popup menu / preview window      
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif      
@@ -564,7 +586,26 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 " CTRLP configuration
 let g:ctrlp_by_filename = 1
 let g:ctrlp_switch_buffer = 't'
+" ALE configuration
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
 
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_filetype_changed = 0
+let g:ale_lint_on_text_changed = 'never'
+
+let g:ale_statusline_format = ['Errors: %d', 'Warnings: %d', '']
+
+let g:ale_linters = {
+      \ 'tex': ['lacheck'],
+      \ 'python': ['pylint'],
+      \}
+let g:ale_keep_list_window_open = 1
+
+" nmap <silent> <leader>aa <Plug>(ale_lint)
+" nmap <silent> <leader>aj <Plug>(ale_next_wrap)
+" nmap <silent> <leader>ak <Plug>(ale_previous_wrap)
 " syntastic
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗'
@@ -573,14 +614,15 @@ let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_python_checkers=['python', 'flake8']
+" let g:syntastic_python_checkers=['python', 'flake8']
 " Syntastic configuration (source code syntax checking)
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-" let b:syntastic_mode = 'passive'
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_quiet_messages = { "type": "style" }
+let b:syntastic_mode = 'passive'
 " let g:syntastic_c_checkers=['gcc','cppcheck']
 " let g:syntastic_enable_balloons = 1 
 " let g:syntastic_auto_jump = 1
@@ -601,7 +643,6 @@ let g:syntastic_python_checkers=['python', 'flake8']
 " let g:syntastic_cpp_config_file = '.config_syntastic'
 
 " Tagbar
-nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 " ConqueGDB configuration
@@ -614,6 +655,7 @@ let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_InsertOnEnter = 1
 let g:ConqueTerm_CWInsert = 1
 let g:ConqueGdb_SaveHistory = 1
+let g:ConqueGdb_Leader = 'o'
 map <C-q>d <ESC>:ConqueGdbBDelete<CR>
 nmap & F<Space>a$<ESC>f<Space>i$
 
@@ -629,6 +671,10 @@ else
 	set background=dark
 	let g:gruvbox_italic=1
 	colorscheme gruvbox
+	hi Search cterm=underline ctermfg=LightMagenta ctermbg=NONE
+	hi IncSearch cterm=NONE ctermfg=White ctermbg=DarkMagenta
+	hi SpellBad cterm=underline ctermfg=DarkRed ctermbg=NONE
+
 	" colorscheme duoduo
 	" colorscheme material-monokai
 endif
@@ -658,10 +704,10 @@ nmap <F9> <ESC>:DoxAuthor<CR>
 "nmap <C-b> :make<CR>
 "nmap <C-b> :make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- uImage<CR>
 "nmap <C-b> :make <CR>
-nmap <C-b> :make<CR>
-imap <C-b> <c-o><c-b>
-" nmap <F7>  <C-b>
-" imap <F7>  <c-o><F7>
+" nmap <C-b> :make<CR>
+" imap <C-b> <c-o><c-b>
+nmap <F7>  :make<CR>
+imap <F7>  <c-o><F7>
 
 " (F9) Open file explorer
 map <silent> <F9> <ESC>:Explore<CR>
@@ -688,13 +734,16 @@ let g:NERDTreeWinSize = 50
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> <ESC>:NERDTreeFind<CR>
 nnoremap <silent> <F3> <ESC>:NERDTreeToggle<CR>
+nnoremap <silent> <F4> :TagbarToggle<CR>
+nnoremap <silent> <F5> :call ToogleSpell()<CR>
+
 
 " (CTRL_A, CTRL-I) change to *.C/*.H file 
 nnoremap <C-s> :A<CR>
 nnoremap <C-i> <ESC>:IH<CR>
 
 " (CTRL-P) go back to previous tag
-nnoremap <C-p> <ESC>:pop<CR>
+map <C-n> <ESC>:pop<CR>
 
 " (CTRL-W ]) Open tag under cursor in new tab
 nnoremap <C-W>] <C-W>]:tab split<CR>gT:q<CR>gt 
@@ -736,8 +785,11 @@ cmap w!! w !sudo tee % >/dev/null
 set pastetoggle=<F2>
 
 " default command to invoke CtrlP:
-let g:ctrlp_map = '<c-f>'
+let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+"
+" autopairs
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '$':'$'}
 
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
@@ -776,6 +828,13 @@ function CheckFileType()
 	endif
 endfunction
 
+function ToogleSpell()
+	if &spelllang == 'en'
+		set spell spelllang=
+	else
+		set spell spelllang=en
+	endif
+endfunction
 " hi Function ctermfg=blue
 " set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 
