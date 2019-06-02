@@ -1,8 +1,10 @@
 " ~/git/.vim/sessions/default.vim:
 " Vim session script.
-" Created by session.vim 2.13.1 on 18 dezembro 2018 at 17:33:46.
+" Created by session.vim 2.13.1 on 04 abril 2019 at 15:00:41.
 " Open this file in Vim and run :source % to restore your session.
 
+set guioptions=aegimrLtT
+silent! set guifont=
 if exists('g:syntax_on') != 1 | syntax on | endif
 if exists('g:did_load_filetypes') != 1 | filetype on | endif
 if exists('g:did_load_ftplugin') != 1 | filetype plugin on | endif
@@ -11,27 +13,36 @@ if &background != 'dark'
 	set background=dark
 endif
 if !exists('g:colors_name') || g:colors_name != 'gruvbox' | colorscheme gruvbox | endif
-call setqflist([{'lnum': 230, 'col': 0, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'filename': 'root.tex', 'text': 'LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 230.'}, {'lnum': 230, 'col': 0, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'filename': 'root.tex', 'text': 'LaTeX Font Warning: Command \normalsize invalid in math mode on input line 230.'}, {'lnum': 230, 'col': 0, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'filename': 'root.tex', 'text': 'LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 230.'}, {'lnum': 230, 'col': 0, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'filename': 'root.tex', 'text': 'LaTeX Font Warning: Command \normalsize invalid in math mode on input line 230.'}, {'lnum': 366, 'col': 0, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'filename': 'root.tex', 'text': 'Underfull \hbox (badness 10000) in paragraph at lines 366--366'}, {'lnum': 624, 'col': 0, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'filename': 'root.tex', 'text': 'LaTeX Warning: Reference `eq:continuitya'' on page 5 undefined on input line 624.'}, {'lnum': 0, 'col': 0, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'filename': 'root.tex', 'text': 'LaTeX Warning: There were undefined references.'}])
+call setqflist([])
 let SessionLoad = 1
+if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/git/mpct/quad/article
+silent tabonly
+cd ~/git/ProVANT-Simulator_Developer
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +704 root.tex
-badd +33 ~/git/.vim/UltiSnips/tex.snippets
-badd +0 ~/.vimrc
+badd +2 source/Database/models/Quadrotor/robot/model.sdf
+badd +0 source/Database/models/Quadrotor/config/config.xml
+badd +1 source/Database/models/Quadrotor/model.config
+badd +2 source/Structure/custom_plugins/plugins/QuadData/QuadData.cpp
+badd +25 source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.h
+badd +37 source/Structure/custom_plugins/plugins/QuadData/QuadData.h
+badd +0 source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.cpp
 argglobal
 silent! argdel *
-$argadd root.tex
-edit root.tex
+edit source/Database/models/Quadrotor/robot/model.sdf
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
 1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 wincmd w
 wincmd _ | wincmd |
 split
@@ -40,12 +51,18 @@ wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
-set winminheight=1 winminwidth=1 winheight=1 winwidth=1
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 24 + 26) / 53)
 exe 'vert 1resize ' . ((&columns * 95 + 95) / 190)
-exe '2resize ' . ((&lines * 25 + 26) / 53)
-exe 'vert 2resize ' . ((&columns * 94 + 95) / 190)
+exe '2resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 2resize ' . ((&columns * 95 + 95) / 190)
 exe '3resize ' . ((&lines * 24 + 26) / 53)
 exe 'vert 3resize ' . ((&columns * 94 + 95) / 190)
+exe '4resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 4resize ' . ((&columns * 94 + 95) / 190)
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -56,35 +73,15 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 704 - ((24 * winheight(0) + 25) / 50)
+let s:l = 2 - ((1 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-704
+2
 normal! 0
-lcd ~/git/mpct/quad/article
 wincmd w
 argglobal
-if bufexists('~/git/.vim/plugged/auto-pairs/doc/AutoPairs.txt') | buffer ~/git/.vim/plugged/auto-pairs/doc/AutoPairs.txt | else | edit ~/git/.vim/plugged/auto-pairs/doc/AutoPairs.txt | endif
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-silent! normal! zE
-let s:l = 201 - ((20 * winheight(0) + 12) / 25)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-201
-normal! 05|
-lcd ~/git/mpct/quad/article
-wincmd w
-argglobal
-if bufexists('~/.vimrc') | buffer ~/.vimrc | else | edit ~/.vimrc | endif
+if bufexists('source/Database/models/Quadrotor/config/config.xml') | buffer source/Database/models/Quadrotor/config/config.xml | else | edit source/Database/models/Quadrotor/config/config.xml | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -94,26 +91,65 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 844 - ((23 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-844
-normal! 023|
-lcd ~/git/mpct/quad/article
+1
+normal! 0
+wincmd w
+argglobal
+if bufexists('source/Structure/custom_plugins/plugins/QuadData/QuadData.cpp') | buffer source/Structure/custom_plugins/plugins/QuadData/QuadData.cpp | else | edit source/Structure/custom_plugins/plugins/QuadData/QuadData.cpp | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 2 - ((1 * winheight(0) + 12) / 24)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+2
+normal! 0
+wincmd w
+argglobal
+if bufexists('source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.cpp') | buffer source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.cpp | else | edit source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.cpp | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
 wincmd w
 3wincmd w
+exe '1resize ' . ((&lines * 24 + 26) / 53)
 exe 'vert 1resize ' . ((&columns * 95 + 95) / 190)
-exe '2resize ' . ((&lines * 25 + 26) / 53)
-exe 'vert 2resize ' . ((&columns * 94 + 95) / 190)
+exe '2resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 2resize ' . ((&columns * 95 + 95) / 190)
 exe '3resize ' . ((&lines * 24 + 26) / 53)
 exe 'vert 3resize ' . ((&columns * 94 + 95) / 190)
+exe '4resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 4resize ' . ((&columns * 94 + 95) / 190)
 tabnext 1
-if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
 "   silent exe 'bwipe ' . s:wipebuf
 endif
 " unlet! s:wipebuf
-set winheight=1 winwidth=20 winminheight=1 winminwidth=1 shortmess=filnxtToOF
+set winheight=1 winwidth=20 shortmess=filnxtToO
+set winminheight=1 winminwidth=1
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if file_readable(s:sx)
   exe "source " . fnameescape(s:sx)

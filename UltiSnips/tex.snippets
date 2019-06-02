@@ -32,3 +32,27 @@ endsnippet
 snippet noi "noindent"
 \noindent
 endsnippet
+
+snippet auth "Author entry"
+\author{$1}
+endsnippet
+
+snippet figtex "Figures with pdf_tex files" b
+\begin{figure}[${2:htpb}]
+	\centering
+	\def\svgwidth{${3:0.8}\linewidth}
+	\import{img/}{${4:figure}.pdf_tex}
+	\caption{${4/(\w+)\.\w+/\u$1/}$0}
+	\label{fig:${4/(\w+)\.\w+/$1/}}
+\end{figure}
+endsnippet
+snippet figure "reference to a figure"
+Fig.~\ref{fig:$1}
+endsnippet
+snippet	cite "normal cite"
+\cite{$1}
+endsnippet
+
+snippet citep "normal cite with within phrase"
+\citep{$1}
+endsnippet

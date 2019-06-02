@@ -1,3 +1,5 @@
+:LanguageToolCheck	LanguageTool.txt	/*:LanguageToolCheck*
+:LanguageToolClear	LanguageTool.txt	/*:LanguageToolClear*
 AN	alternate.txt	/*AN*
 AS	alternate.txt	/*AS*
 AT	alternate.txt	/*AT*
@@ -7,6 +9,8 @@ IHN	alternate.txt	/*IHN*
 IHS	alternate.txt	/*IHS*
 IHT	alternate.txt	/*IHT*
 IHV	alternate.txt	/*IHV*
+LanguageTool	LanguageTool.txt	/*LanguageTool*
+LanguageTool.txt	LanguageTool.txt	/*LanguageTool.txt*
 OmniCpp_DefaultNamespaces	omnicppcomplete.txt	/*OmniCpp_DefaultNamespaces*
 OmniCpp_DisplayMode	omnicppcomplete.txt	/*OmniCpp_DisplayMode*
 OmniCpp_GlobalScopeSearch	omnicppcomplete.txt	/*OmniCpp_GlobalScopeSearch*
@@ -27,10 +31,22 @@ alternate-installation	alternate.txt	/*alternate-installation*
 alternate-purpose	alternate.txt	/*alternate-purpose*
 alternate-support	alternate.txt	/*alternate-support*
 alternate.txt	alternate.txt	/*alternate.txt*
+g:languagetool_disable_rules	LanguageTool.txt	/*g:languagetool_disable_rules*
+g:languagetool_jar	LanguageTool.txt	/*g:languagetool_jar*
+g:languagetool_lang	LanguageTool.txt	/*g:languagetool_lang*
+g:languagetool_win_height	LanguageTool.txt	/*g:languagetool_win_height*
 im_1	imaps.txt	/*im_1*
 imaps-usage	imaps.txt	/*imaps-usage*
 imaps.txt	imaps.txt	/*imaps.txt*
 imaps.txt-toc	imaps.txt	/*imaps.txt-toc*
+languagetool-bugs	LanguageTool.txt	/*languagetool-bugs*
+languagetool-configuration	LanguageTool.txt	/*languagetool-configuration*
+languagetool-download	LanguageTool.txt	/*languagetool-download*
+languagetool-features	LanguageTool.txt	/*languagetool-features*
+languagetool-installation	LanguageTool.txt	/*languagetool-installation*
+languagetool-license	LanguageTool.txt	/*languagetool-license*
+languagetool-overview	LanguageTool.txt	/*languagetool-overview*
+languagetool-screenshots	LanguageTool.txt	/*languagetool-screenshots*
 omnicpp-download	omnicppcomplete.txt	/*omnicpp-download*
 omnicpp-faq	omnicppcomplete.txt	/*omnicpp-faq*
 omnicpp-features	omnicppcomplete.txt	/*omnicpp-features*

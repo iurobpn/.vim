@@ -1,0 +1,177 @@
+" ~/git/.vim/sessions/gazebo.vim.vim:
+" Vim session script.
+" Created by session.vim 2.13.1 on 04 abril 2019 at 15:01:02.
+" Open this file in Vim and run :source % to restore your session.
+
+set guioptions=aegimrLtT
+silent! set guifont=
+if exists('g:syntax_on') != 1 | syntax on | endif
+if exists('g:did_load_filetypes') != 1 | filetype on | endif
+if exists('g:did_load_ftplugin') != 1 | filetype plugin on | endif
+if exists('g:did_indent_on') != 1 | filetype indent on | endif
+if &background != 'dark'
+	set background=dark
+endif
+if !exists('g:colors_name') || g:colors_name != 'gruvbox' | colorscheme gruvbox | endif
+call setqflist([])
+let SessionLoad = 1
+if &cp | set nocp | endif
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+silent tabonly
+cd ~/git/ProVANT-Simulator_Developer
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +2 source/Database/models/Quadrotor/robot/model.sdf
+badd +0 source/Database/models/Quadrotor/config/config.xml
+badd +1 source/Database/models/Quadrotor/model.config
+badd +2 source/Structure/custom_plugins/plugins/QuadData/QuadData.cpp
+badd +25 source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.h
+badd +37 source/Structure/custom_plugins/plugins/QuadData/QuadData.h
+badd +0 source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.cpp
+argglobal
+silent! argdel *
+edit source/Database/models/Quadrotor/robot/model.sdf
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 1resize ' . ((&columns * 95 + 95) / 190)
+exe '2resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 2resize ' . ((&columns * 95 + 95) / 190)
+exe '3resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 3resize ' . ((&columns * 94 + 95) / 190)
+exe '4resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 4resize ' . ((&columns * 94 + 95) / 190)
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 2 - ((1 * winheight(0) + 12) / 24)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+2
+normal! 0
+wincmd w
+argglobal
+if bufexists('source/Database/models/Quadrotor/config/config.xml') | buffer source/Database/models/Quadrotor/config/config.xml | else | edit source/Database/models/Quadrotor/config/config.xml | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+wincmd w
+argglobal
+if bufexists('source/Structure/custom_plugins/plugins/QuadData/QuadData.cpp') | buffer source/Structure/custom_plugins/plugins/QuadData/QuadData.cpp | else | edit source/Structure/custom_plugins/plugins/QuadData/QuadData.cpp | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 2 - ((1 * winheight(0) + 12) / 24)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+2
+normal! 0
+wincmd w
+argglobal
+if bufexists('source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.cpp') | buffer source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.cpp | else | edit source/Structure/custom_plugins/plugins/brushless_quad/brushlessQuad.cpp | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+wincmd w
+3wincmd w
+exe '1resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 1resize ' . ((&columns * 95 + 95) / 190)
+exe '2resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 2resize ' . ((&columns * 95 + 95) / 190)
+exe '3resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 3resize ' . ((&columns * 94 + 95) / 190)
+exe '4resize ' . ((&lines * 24 + 26) / 53)
+exe 'vert 4resize ' . ((&columns * 94 + 95) / 190)
+tabnext 1
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
+"   silent exe 'bwipe ' . s:wipebuf
+endif
+" unlet! s:wipebuf
+set winheight=1 winwidth=20 shortmess=filnxtToO
+set winminheight=1 winminwidth=1
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+
+" Support for special windows like quick-fix and plug-in windows.
+" Everything down here is generated by vim-session (not supported
+" by :mksession out of the box).
+
+3wincmd w
+tabnext 1
+if exists('s:wipebuf')
+  if empty(bufname(s:wipebuf))
+if !getbufvar(s:wipebuf, '&modified')
+  let s:wipebuflines = getbufline(s:wipebuf, 1, '$')
+  if len(s:wipebuflines) <= 1 && empty(get(s:wipebuflines, 0, ''))
+    silent execute 'bwipeout' s:wipebuf
+  endif
+endif
+  endif
+endif
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: ft=vim ro nowrap smc=128

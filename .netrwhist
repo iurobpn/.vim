@@ -1,9 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/gagarin/Dropbox/bin/cpp/asio/main.cpp'
-let g:netrw_dirhist_2='/home/gagarin'
-let g:netrw_dirhist_3='/home/gagarin/git/provant/software/io-board/stm32f4/app/remote-controlled-flight'
-let g:netrw_dirhist_4='/home/gagarin/.vim/bundle/vim-latex/doc'
-let g:netrw_dirhist_5='/home/gagarin/Dropbox/Modulo 05 - Análise FInanceira/trabalho/report'
-let g:netrw_dirhist_6='/home/gagarin/Dropbox/UFMG/mestrado/disciplinas/fundamentos_de_controle_nao_linear/tf/rel'
-let g:netrw_dirhist_7='/home/gagarin'
+let g:netrw_dirhist_cnt =0
