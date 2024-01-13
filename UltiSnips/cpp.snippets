@@ -10,3 +10,34 @@ snippet sget "make c++ getter and setter"
 ${1:Type} ${2:var}();
 void set$2($1 $2);
 endsnippet
+
+snippet ma
+int main(int argc, char *argv[])
+{
+	${0}
+	return 0;
+}
+endsnippet
+
+# auto iterator
+snippet iterr
+for (auto ${1:i} = ${2:container}.rbegin(); $1 != $2.rend(); ++$1) {
+	${3:std::cout << *$1 << std::endl;}
+}
+endsnippet
+
+# strings
+snippet str
+std::string
+endsnippet
+
+# vector
+snippet vec
+std::vector
+endsnippet
+
+# list
+snippet lst
+std::list
+endsnippet
+
